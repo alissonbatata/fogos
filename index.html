@@ -1,0 +1,42 @@
+<style>
+  .particle {
+    position: absolute;
+    background-color: hsla(
+      calc(360 * var(--hue)),
+      calc(80% + 20% * var(--exp)),
+      calc(50% + 50% * var(--exp)),
+      calc(0.2 + 0.8 * var(--exp))
+    );
+    border-radius: 100%;
+    filter: blur(0.05rem);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(var(--size));
+    animation: explode calc(0.1s + 0.3s * var(--exp)) forwards;
+  }
+
+  @keyframes explode {
+    from {
+      transform: translate(-50%, -50%) scale(0);
+      filter: blur(0.05rem);
+      opacity: 1;
+    }
+    to {
+      transform: translate(-50%, -50%) scale(var(--size));
+      filter: blur(0.5rem);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  for (let i = 0; i < 100; i++) {
+    const particle = document.createElement("div");
+    particle.classList.add("particle");
+    particle.style.left = Math.random() * 100 + "vw";
+    particle.style.bottom = Math.random() * 100 + "vh";
+    particle.style.setProperty("--size", Math.random());
+    particle.style.setProperty("--exp", Math.random());
+    particle.style.setProperty("--hue", Math.random());
+    document.body.appendChild(particle);
+  }
+</script>
